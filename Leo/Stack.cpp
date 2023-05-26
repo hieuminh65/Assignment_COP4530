@@ -24,7 +24,6 @@ class Stack {
 
 Stack::Stack(){
     head = NULL;
-    capacity = 100;
 };
 
 void Stack::push(char data){
