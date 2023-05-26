@@ -69,17 +69,20 @@ int TestStack(string string_test){
         if (string_test[i] == '(' || string_test[i] == '{' || string_test[i] == '[') {
             s.push(string_test[i]);
         } 
-        else if ((string_test[i] == ')') && (s.display() != '(')) {
-            return -1;
-        }
-        else if ((string_test[i] == ']') && (s.display() != '[')) {
-            return -1;
-        }
-        else if ((string_test[i] == '}') && (s.display() != '{')) {
-            return -1;
-        }
-        else {
-            s.pop();
+        else if (string_test[i] == ')' || string_test[i] == ']' || string_test[i] == '}'){
+            if ((string_test[i] == ')') && s.display() != '(') {
+                return -1;
+            }
+            else if ((string_test[i] == ']') && (s.display() != '[')) {
+                return -1;
+            }
+            else if ((string_test[i] == '}') && (s.display() != '{')) {
+                cout << "error here" << endl;
+                return -1;
+            }
+            else {
+                s.pop();
+            }
         }
     }
     return 1;
@@ -103,6 +106,12 @@ int main(){
     // cout << s.pop() << endl;
     // cout << s.pop() << endl;
     // cout << s.pop() << endl;
-    cout << TestStack("{(])}") << endl;
+    // 5 test cases
+    string string_test1 = "12*3{2(()[])}2";    // * True
+    string string_test2 = "1[s}3{2)}2)";  // * False
+    string string_test3 = ""; // * True
+    string string_test4 = "{[()]}(())"; // * True
+    string string_test5 = "((([]{{{}}})))()()()(())({[[[]]]})"; // * True
+    cout << TestStack(string_test3) << endl;
     return 0;
 }
