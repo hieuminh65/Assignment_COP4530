@@ -76,7 +76,6 @@ int TestStack(string string_test){
                 return -1;
             }
             else if ((string_test[i] == '}') && (s.display() != '{')) {
-                cout << "error here" << endl;
                 return -1;
             }
             else {
@@ -90,27 +89,26 @@ int TestStack(string string_test){
 
 
 int main(){
+    string test1 = "{{{{}}}[][]((())";    // * False
+    string test2 = "(%TT{>><]]]%%%%%%)";  // * False
+    string test3 = "(((((()))))){}{}{}[][][][[[]]]"; // * True
+    string test4 = "{{{@23+6767}}}*<45>(a+b)[]"; // * True
+    string test5 = "(a+b)"; // * True
+    string test6 = "(((((a+b %%%%%####3422222222222)))))[]{}[]"; // * True
+    string test7 = "[[[{{()}}]]]"; // * True
+    string test8 = "((((((}}}}}}"; // * False
+    string test9 = "Aaaaaaaa+bbbb({}{}{}[][][]tttttt + %^$)"; // * True
+    string test10 = "@@@@@@@@@@@@@@@@@@@@@@@$$%%T$%$%$$%{}()%%%%%%%%%%%%%%%%%%%%%%%%%%%% "; // * True
+    
     // Stack s = Stack();
-    // s.push(')');
-    // s.push('(');
-    // s.push(')');
-    // s.push('{');
-    // s.push('}');
-    // cout << s.display() << endl ;
-    // cout << s.pop() << endl;
-    // cout << s.display() << endl ;
-    // cout << s.pop() << endl;
-    // cout << s.pop() << endl;
-    // cout << s.pop() << endl;
-    // cout << s.pop() << endl;
-    // cout << s.pop() << endl;
-    // cout << s.pop() << endl;
-    // 5 test cases
-    string string_test1 = "12*3{2(()[])}2";    // * True
-    string string_test2 = "1[s}3{2)}2)";  // * False
-    string string_test3 = ""; // * True
-    string string_test4 = "{[()]}(())"; // * True
-    string string_test5 = "((([]{{{}}})))()()()(())({[[[]]]})"; // * True
-    cout << TestStack(string_test3) << endl;
+    // s.push('a');
+    // s.push('b');
+    // cout << s.display() << endl;
+    // s.pop();
+    // cout << s.display() << endl;
+    // s.pop();
+    // cout << s.display() << endl;
+
+    cout << TestStack(test1) << endl;
     return 0;
 }
