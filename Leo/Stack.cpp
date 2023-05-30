@@ -83,6 +83,9 @@ int TestStack(string string_test){
             }
         }
     }
+    if (s.display() != '\0') {
+        return -1;
+    }
     return 1;
 }
     
@@ -100,15 +103,6 @@ int main(){
     string test9 = "Aaaaaaaa+bbbb({}{}{}[][][]tttttt + %^$)"; // * True
     string test10 = "@@@@@@@@@@@@@@@@@@@@@@@$$%%T$%$%$$%{}()%%%%%%%%%%%%%%%%%%%%%%%%%%%% "; // * True
     
-    // Stack s = Stack();
-    // s.push('a');
-    // s.push('b');
-    // cout << s.display() << endl;
-    // s.pop();
-    // cout << s.display() << endl;
-    // s.pop();
-    // cout << s.display() << endl;
-
-    cout << TestStack(test1) << endl;
+    cout << TestStack(test10) << endl;
     return 0;
 }
