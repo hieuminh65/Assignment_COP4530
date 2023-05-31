@@ -62,7 +62,7 @@ char Stack::display(){
     return head->data;
 };
 
-int TestStack(string string_test){
+bool TestStack(string string_test){
     Stack s = Stack();
     for (int i = 0; i < string_test.length(); i++){
         if (string_test[i] == '(' || string_test[i] == '{' || string_test[i] == '[') {
@@ -70,13 +70,13 @@ int TestStack(string string_test){
         } 
         else if (string_test[i] == ')' || string_test[i] == ']' || string_test[i] == '}'){
             if ((string_test[i] == ')') && s.display() != '(') {
-                return -1;
+                return false;
             }
             else if ((string_test[i] == ']') && (s.display() != '[')) {
-                return -1;
+                return false;
             }
             else if ((string_test[i] == '}') && (s.display() != '{')) {
-                return -1;
+                return false;
             }
             else {
                 s.pop();
@@ -84,9 +84,9 @@ int TestStack(string string_test){
         }
     }
     if (s.display() != '\0') {
-        return -1;
+        return false;
     }
-    return 1;
+    return true;
 }
     
 
@@ -113,7 +113,7 @@ int main(){
 
     // change the test case here
     cout << "Result for test case 15: ";
-    cout << TestStack(test5) << endl;
+    cout << TestStack(test14) << endl;
 
     auto end = std::chrono::steady_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);

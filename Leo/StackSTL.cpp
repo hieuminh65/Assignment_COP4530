@@ -16,13 +16,13 @@ int TestStack(string string_test){
         } 
         else if (string_test[i] == ')' || string_test[i] == ']' || string_test[i] == '}'){
             if ((string_test[i] == ')') && s.top() != '(') {
-                return -1;
+                return false;
             }
             else if ((string_test[i] == ']') && (s.top() != '[')) {
-                return -1;
+                return false;
             }
             else if ((string_test[i] == '}') && (s.top() != '{')) {
-                return -1;
+                return false;
             }
             else {
                 s.pop();
@@ -30,9 +30,9 @@ int TestStack(string string_test){
         }
     }
     if (!s.empty()) {
-        return -1;
+        return false;
     }
-    return 1;
+    return true;
 }
     
 
