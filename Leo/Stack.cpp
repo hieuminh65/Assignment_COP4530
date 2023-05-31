@@ -118,7 +118,7 @@ int main(){
     // cout << TestStack(test14) << endl;
 
     cout << "Result for test case 15: ";
-    cout << TestStack(test15) << endl;
+    cout << TestStack(test5) << endl;
 
     auto end = std::chrono::steady_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
