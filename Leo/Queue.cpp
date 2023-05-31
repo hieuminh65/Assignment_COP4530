@@ -5,24 +5,24 @@ using namespace std;
 
 const int MAX_SIZE = 100; // Maximum size of the circular array is 99
 
-class CircularQueue {
+class Queue {
     private:
         int array[MAX_SIZE];
         int front;
-        int rear;
+        int back;
 
     public:
-        CircularQueue() {
+        Queue() {
             front = 0;
-            rear = 0; 
+            back = 0; 
         }
 
-        bool isEmpty() {
-            return front == rear;
+        bool empty() {
+            return front == back;
         }
 
         bool isFull() {
-            return (rear + 1) % MAX_SIZE == front;
+            return (back + 1) % MAX_SIZE == front;
         }
 
         void enqueue(int element) {
@@ -30,37 +30,37 @@ class CircularQueue {
                 throw std::overflow_error("Queue is full");
             }
 
-            rear = (rear + 1) % MAX_SIZE;
-            array[rear] = element;
+            back = (back + 1) % MAX_SIZE;
+            array[back] = element;
         }
 
         int dequeue() {
-            if (isEmpty()) {
+            if (empty()) {
                 throw std::underflow_error("Queue is empty");
             }
             front = (front + 1) % MAX_SIZE;
             return array[front];
         }
 
-        int frontElement() {
-            if (isEmpty()) {
+        int front() {
+            if (empty()) {
                 throw std::underflow_error("Queue is empty");
             }
             return array[(front + 1) % MAX_SIZE];
         }
 
-        int rearElement() {
-            if (isEmpty()) {
+        int back() {
+            if (empty()) {
                 throw std::underflow_error("Queue is empty");
             }
-            return array[rear];
+            return array[back];
         }
 
         int size() {
-            return (rear - front + MAX_SIZE) % MAX_SIZE;
+            return (back - front + MAX_SIZE) % MAX_SIZE;
         }
 };
 
 int main(){
-    CircularQueue queue = CircularQueue();
+    Queue queue = Queue();
 }
