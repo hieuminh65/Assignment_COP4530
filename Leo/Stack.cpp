@@ -110,13 +110,8 @@ int main(){
     string test14 = "((((({[((([])))][{(())}]})}))))"; // * False
     string test15 = "((((({[2312((123([2131])*))][{(())}]})}))))"; // * False
     string test16 = "((((({[2312((123([2131])*))][{(())}]}2312((123([2131"; // * False
-    
-    // cout << TestStack(test10) << endl;
-    // cout << TestStack(test11) << endl;
-    // cout << TestStack(test12) << endl;
-    // cout << TestStack(test13) << endl;
-    // cout << TestStack(test14) << endl;
 
+    // change the test case here
     cout << "Result for test case 15: ";
     cout << TestStack(test5) << endl;
 

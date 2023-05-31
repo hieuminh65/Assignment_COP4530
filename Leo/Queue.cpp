@@ -63,18 +63,4 @@ class CircularQueue {
 
 int main(){
     CircularQueue queue = CircularQueue();
-    queue.enqueue(1);
-    // queue.enqueue(2);
-    // queue.enqueue(3);
-    // queue.enqueue(4);
-    // queue.enqueue(5);
-    // cout << queue.rearElement() << endl;
-    // cout << queue.frontElement() << endl;
-    // queue.enqueue(9);
-    cout << queue.dequeue() << endl;
-    // cout << queue.dequeue() << endl;
-    // cout << queue.dequeue() << endl;
-    // cout << queue.frontElement() << endl;
-    // cout << queue.rearElement() << endl;
-    return 0;
 }
