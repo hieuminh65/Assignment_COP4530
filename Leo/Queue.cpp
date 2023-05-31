@@ -3,7 +3,7 @@
 
 using namespace std;
 
-const int MAX_SIZE = 5; // Maximum size of the circular array is 4
+const int MAX_SIZE = 100; // Maximum size of the circular array is 99
 
 class CircularQueue {
     private:
@@ -46,7 +46,6 @@ class CircularQueue {
             if (isEmpty()) {
                 throw std::underflow_error("Queue is empty");
             }
-            cout << "front is" << front << endl;
             return array[(front + 1) % MAX_SIZE];
         }
 
@@ -54,7 +53,6 @@ class CircularQueue {
             if (isEmpty()) {
                 throw std::underflow_error("Queue is empty");
             }
-            cout << "rear is" << rear << endl;
             return array[rear];
         }
 
@@ -64,18 +62,19 @@ class CircularQueue {
 };
 
 int main(){
-    CircularQueue queue;
+    CircularQueue queue = CircularQueue();
     queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
-    queue.enqueue(4);
-    queue.enqueue(5);
-    // queue.enqueue(6); // This will throw an exception
+    // queue.enqueue(2);
+    // queue.enqueue(3);
+    // queue.enqueue(4);
+    // queue.enqueue(5);
     // cout << queue.rearElement() << endl;
     // cout << queue.frontElement() << endl;
     // queue.enqueue(9);
+    cout << queue.dequeue() << endl;
     // cout << queue.dequeue() << endl;
     // cout << queue.dequeue() << endl;
-    // cout << queue.dequeue() << endl;
+    // cout << queue.frontElement() << endl;
+    // cout << queue.rearElement() << endl;
     return 0;
 }
