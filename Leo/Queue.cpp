@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
-
+#include <chrono>
+#include <memory>
 using namespace std;
 
 const int MAX_SIZE = 100; // Maximum size of the circular array is 99
@@ -25,7 +26,7 @@ class Queue {
             return (back + 1) % MAX_SIZE == front;
         }
 
-        void enqueue(int element) {
+        void push(int element) {
             if (isFull()) {
                 throw std::overflow_error("Queue is full");
             }
@@ -34,7 +35,7 @@ class Queue {
             array[back] = element;
         }
 
-        int dequeue() {
+        int pop() {
             if (empty()) {
                 throw std::underflow_error("Queue is empty");
             }
@@ -42,14 +43,14 @@ class Queue {
             return array[front];
         }
 
-        int front() {
+        int frontElement() {
             if (empty()) {
                 throw std::underflow_error("Queue is empty");
             }
             return array[(front + 1) % MAX_SIZE];
         }
 
-        int back() {
+        int backElement() {
             if (empty()) {
                 throw std::underflow_error("Queue is empty");
             }
@@ -62,5 +63,31 @@ class Queue {
 };
 
 int main(){
+    auto start = std::chrono::steady_clock::now();
+
     Queue queue = Queue();
+    queue.push(5);
+    queue.push(8);
+    queue.push(4);
+    queue.push(2);
+    cout << queue.frontElement() << endl;
+    queue.pop();
+    cout << queue.frontElement() << endl;
+    queue.pop();
+    cout << queue.frontElement() << endl;
+    queue.pop();
+    cout << queue.frontElement() << endl;
+    cout << queue.backElement() << endl;
+    cout <<queue.empty() << endl; // 0 means False
+    queue.pop();
+    cout <<queue.empty() << endl; // 1 means True
+    cout << queue.size() << endl; // size = 0
+    auto end = std::chrono::steady_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    std::cout << "Execution time: " << duration.count() << " us (microsecond)" << std::endl;
+
+    // get memory consumption
+    std::unique_ptr<int[]> ptr(new int[1024 * 1024]);
+    std::cout << "Memory usage: " << 1024 * 1024 * sizeof(int) << " bytes" << std::endl;
+    return 0;
 }

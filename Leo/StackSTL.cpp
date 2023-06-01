@@ -34,8 +34,6 @@ int TestStack(string string_test){
     }
     return true;
 }
-    
-
 
 int main(){
     auto start = std::chrono::steady_clock::now();
@@ -57,14 +55,8 @@ int main(){
     string test15 = "((((({[2312((123([2131])*))][{(())}]})}))))"; // * False
     string test16 = "((((({[2312((123([2131])*))][{(())}]}2312((123([2131"; // * False
     
-    // cout << TestStack(test10) << endl;
-    // cout << TestStack(test11) << endl;
-    // cout << TestStack(test12) << endl;
-    // cout << TestStack(test13) << endl;
-    // cout << TestStack(test14) << endl;
-
     cout << "Result for test case 15: ";
-    cout << TestStack(test5) << endl;
+    cout << TestStack(test15) << endl;
 
     auto end = std::chrono::steady_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
