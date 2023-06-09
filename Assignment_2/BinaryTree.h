@@ -5,7 +5,7 @@
 #include <sstream>
 
 
-#include "PDF.h" // for the PDF display
+#include "PDF.h" 
 
 using namespace std;
 
@@ -65,6 +65,9 @@ class BinaryTree {
   bool empty_this() { empty(root); root = NULL; return true; }
   void init_complete( T *elements, int n_elements );
   int to_flat_array( T* elements, int max ) const;
+  // r new --------------------------------
+  void add(const T& value);
+
   
   /* Traversal */
   void preorder( void (*f)(const T&) )  const { return preorder(f, root); }

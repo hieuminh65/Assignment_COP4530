@@ -1,7 +1,5 @@
-#include "BinaryTree.h"
-#include <iostream>
-#include <string>
-#include "PDF.h"
+// #include "BinaryTree.h"
+
 
 using namespace std;
 
@@ -143,6 +141,11 @@ void BinaryTree<T>::preorder( void (*f)(const T&), BTNode<T> *node ) const
 }
 
 /************************/
+/* Mutator */
+/************************/
+
+
+/************************/
 /* Conversion to Arrays */
 /************************/
 
@@ -224,6 +227,33 @@ ostream& operator<<( ostream& out, const BTNode<T>* node )
 
   return out;
 }
+
+// r new function --------------------------
+template<class T>
+void BinaryTree<T>::add(const T& value) {
+    if (root == nullptr) {
+        root = new BTNode<T>(value);
+        return;
+    }
+  
+    BTNode<T>* current = root;
+    while (true) {
+        if (value < current->elem) {
+            if (current->left == nullptr) {
+                current->left = new BTNode<T>(value);
+                break;
+            }
+            current = current->left;
+        } else {
+            if (current->right == nullptr) {
+                current->right = new BTNode<T>(value);
+                break;
+            }
+            current = current->right;
+        }
+    }
+}
+
 
 /***********/
 /* Display */
