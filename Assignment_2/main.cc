@@ -1,8 +1,8 @@
 #include "BinaryTree.h"
 // #include "PDF.h" 
 // #include "BinaryTree.cpp"
-#include <iostream>
-#include <sstream>
+// #include <iostream>
+// #include <sstream>
 using namespace std;
 
 void func( const int& src )
@@ -36,7 +36,7 @@ int main( int argc, char *argv[] )
         elements[k] = k;
 
     // Construct a PDF object to write the tree output
-    PDF *pdf = new PDF("trees.pdf");
+    // PDF *pdf = new PDF("trees.pdf");
     
     // Create a new binary tree, having 'n' elements
     int n = 12;  // <-- try changing the value of 'n'

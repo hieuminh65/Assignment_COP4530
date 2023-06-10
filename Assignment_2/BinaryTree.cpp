@@ -1,4 +1,5 @@
 // #include "BinaryTree.h"
+// #include "PDF.h"
 
 
 using namespace std;
@@ -144,6 +145,15 @@ void BinaryTree<T>::preorder( void (*f)(const T&), BTNode<T> *node ) const
 /* Mutator */
 /************************/
 
+template<class T>
+void BinaryTree<T>::empty(BTNode<T> *node) const
+{
+  if (!node)
+    return;
+  empty(node->left);
+  empty(node->right);
+  delete node;
+}
 
 /************************/
 /* Conversion to Arrays */

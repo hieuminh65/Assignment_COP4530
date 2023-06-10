@@ -5,7 +5,7 @@
 #include <sstream>
 
 
-#include "PDF.h" 
+// #include "PDF.h" 
 
 using namespace std;
 
@@ -102,7 +102,7 @@ class BinaryTree {
   void inorder( void (*f)(const T&), BTNode<T> *node ) const;
   void postorder( void (*f)(const T&), BTNode<T> *node ) const;
 
-  void empty( BTNode<T>* node );
+  void empty( BTNode<T>* node ) const; 
 
   BTNode<T>* init_complete( T *elements, int n_elements, int index );
   
