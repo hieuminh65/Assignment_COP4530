@@ -1,8 +1,6 @@
 #include "BinaryTree.h"
 #include "PDF.h" // for the PDF display
-// #include "BinaryTree.cpp"
-#include <iostream>
-#include <sstream>
+
 using namespace std;
 
 void func( const int& src )

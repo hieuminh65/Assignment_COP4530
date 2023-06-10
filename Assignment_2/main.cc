@@ -42,7 +42,6 @@ int main( int argc, char *argv[] )
     int n = 12;  // <-- try changing the value of 'n'
     BinaryTree<int> tree(elements, n);
 
-
   
 }
 
