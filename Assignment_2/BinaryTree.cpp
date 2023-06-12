@@ -141,6 +141,7 @@ void BinaryTree<T>::preorder( void (*f)(const T&), BTNode<T> *node ) const
   preorder(f, node->right);
 }
 
+/* LEO ADD new function HERE -------------------------- */
 template<class T>
 void BinaryTree<T>::inorder( void (*f)(const T&), BTNode<T> *node ) const
 {
@@ -161,6 +162,7 @@ void BinaryTree<T>::postorder( void (*f)(const T&), BTNode<T> *node ) const
   f(node->elem);
 }
 
+/* ------------------------------------------------------ */
 
 /************************/
 /* Mutator */
@@ -259,7 +261,7 @@ ostream& operator<<( ostream& out, const BTNode<T>* node )
   return out;
 }
 
-// r new function --------------------------
+/* LEO ADD new function HERE -------------------------- */
 template<class T>
 void BinaryTree<T>::add(const T& value) {
     if (root == nullptr) {
@@ -289,6 +291,8 @@ template<class T>
 void BinaryTree<T>::remove(const T& value) {
   //add delete code here
 }
+
+/* ------------------------------------------------------ */
 
 /***********/
 /* Display */

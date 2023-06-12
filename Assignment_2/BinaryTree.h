@@ -65,9 +65,10 @@ class BinaryTree {
   bool empty_this() { empty(root); root = NULL; return true; }
   void init_complete( T *elements, int n_elements );
   int to_flat_array( T* elements, int max ) const;
-  // r new --------------------------------
+  /* LEO ADD new function HERE -------------------------- */
   void add(const T& value);
   void remove(const T& value);
+  /* ------------------------------------------------------ */
 
   
   /* Traversal */
