@@ -67,6 +67,7 @@ class BinaryTree {
   int to_flat_array( T* elements, int max ) const;
   // r new --------------------------------
   void add(const T& value);
+  void remove(const T& value);
 
   
   /* Traversal */

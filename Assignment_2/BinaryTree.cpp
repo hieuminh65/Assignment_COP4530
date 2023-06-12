@@ -285,6 +285,10 @@ void BinaryTree<T>::add(const T& value) {
     }
 }
 
+template<class T>
+void BinaryTree<T>::remove(const T& value) {
+  //add delete code here
+}
 
 /***********/
 /* Display */
