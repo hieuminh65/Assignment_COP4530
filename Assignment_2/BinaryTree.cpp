@@ -141,6 +141,33 @@ void BinaryTree<T>::preorder( void (*f)(const T&), BTNode<T> *node ) const
   preorder(f, node->right);
 }
 
+template<class T>
+void BinaryTree<T>::inorder( void (*f)(const T&), BTNode<T> *node ) const
+{
+  if (!node)
+    return;
+  inorder(f, node->left);
+  f(node->elem);
+  inorder(f, node->right);
+}
+
+template<class T>
+void BinaryTree<T>::postorder( void (*f)(const T&), BTNode<T> *node ) const
+{
+  if (!node)
+    return;
+  postorder(f, node->left);
+  postorder(f, node->right);
+  f(node->elem);
+}
+
+
+
+
+
+
+
+
 /************************/
 /* Mutator */
 /************************/

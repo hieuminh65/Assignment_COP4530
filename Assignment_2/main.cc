@@ -1,8 +1,6 @@
 #include "BinaryTree.h"
 #include "PDF.h" 
-// #include "BinaryTree.cpp"
-// #include <iostream>
-// #include <sstream>
+
 using namespace std;
 
 void func( const int& src )
@@ -40,8 +38,21 @@ int main( int argc, char *argv[] )
     
     // Create a new binary tree, having 'n' elements
     int n = 12;  // <-- try changing the value of 'n'
-    BinaryTree<int> tree(elements, n);
+    for (int i = 0; i < n; i++){
+      cout << elements[i] << " ";
+    }
 
+    PDF *pdf = new PDF("trees.pdf");
+
+    BinaryTree<int> tree(elements, n);
+    tree.add(55);
+    // Output the tree
+    cout << "tree output via << operator:\n" << tree << "\n";
+    
+    // Draw the tree
+    ostringstream ostring;
+    ostring << "Complete tree having " << n << " nodes";
+    tree.display(pdf, ostring.str());
   
 }
 
