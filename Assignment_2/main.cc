@@ -9,7 +9,7 @@ void func( const int& src )
   cout << src << " ";
 }
 
-int complete_tree_height( int n )
+int complete_tree_height( int n ) 
   // Returns the height of a complete binary tree having 'n' nodes
 {
   int h = 0;
@@ -45,7 +45,7 @@ int main( int argc, char *argv[] )
     PDF *pdf = new PDF("trees.pdf");
 
     BinaryTree<int> tree(elements, n);
-    tree.add(55);
+    tree.add(5);
     // Output the tree
     cout << "tree output via << operator:\n" << tree << "\n";
     
@@ -53,7 +53,8 @@ int main( int argc, char *argv[] )
     ostringstream ostring;
     ostring << "Complete tree having " << n << " nodes";
     tree.display(pdf, ostring.str());
-  
+    pdf->finish();
+    delete pdf;
 }
 
 

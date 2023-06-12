@@ -127,6 +127,18 @@ int BinaryTree<T>::node_count( BTNode<T> *node ) const
   return 1 + node_count(node->left) + node_count(node->right);
 }
 
+template <class T>
+int BinaryTree<T>::height(BTNode<T>* node) const {
+  if (node == nullptr) {
+    return -1; // base case: empty tree has height -1
+  } else {
+    int left_height = height(node->left);
+    int right_height = height(node->right);
+    return 1 + max(left_height, right_height); // add 1 to the max of children heights
+  }
+}
+
+
 /*************/
 /* Traversal */
 /*************/
