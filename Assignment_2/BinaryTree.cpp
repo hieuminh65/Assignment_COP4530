@@ -162,12 +162,6 @@ void BinaryTree<T>::postorder( void (*f)(const T&), BTNode<T> *node ) const
 }
 
 
-
-
-
-
-
-
 /************************/
 /* Mutator */
 /************************/
