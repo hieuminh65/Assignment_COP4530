@@ -114,10 +114,47 @@ BTNode<T>* BinaryTree<T>::init_complete( T *elements, int n_elements,
 		       init_complete(elements, n_elements, 2*index + 1));
 }
 
+template <class T>
+BinaryTree<T>::BinaryTree(const BinaryTree& src) {
+  root = clone(src.root);
+}
+
+template <class T>
+BTNode<T>* BinaryTree<T>::clone(BTNode<T>* node) {
+  if (node == nullptr)
+    return nullptr;
+
+  BTNode<T>* new_node = new BTNode<T>(node->elem);
+  new_node->left = clone(node->left);
+  new_node->right = clone(node->right);
+
+  return new_node;
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const BTNode<T>& src) {
+  out << src.elem << " ";
+  return out;
+}
 
 /********************/
 /* Access and Tests */
 /********************/
+template<class T>
+bool BinaryTree<T>::is_empty() const {
+  return root == nullptr;
+}
+
+template <class T>
+int BinaryTree<T>::height(BTNode<T>* node) const {
+  if (node == nullptr) {
+    return 0; // base case: empty tree has height -1
+  } else {
+    int left_height = height(node->left);
+    int right_height = height(node->right);
+    return 1 + max(left_height, right_height); // add 1 to the max of children heights
+  }
+}
 
 template<class T>
 int BinaryTree<T>::node_count( BTNode<T> *node ) const
@@ -128,16 +165,100 @@ int BinaryTree<T>::node_count( BTNode<T> *node ) const
 }
 
 template <class T>
-int BinaryTree<T>::height(BTNode<T>* node) const {
-  if (node == nullptr) {
-    return -1; // base case: empty tree has height -1
-  } else {
-    int left_height = height(node->left);
-    int right_height = height(node->right);
-    return 1 + max(left_height, right_height); // add 1 to the max of children heights
-  }
+int BinaryTree<T>::balance_factor(BTNode<T>* node) const
+{
+  int left_height = (node->left != nullptr) ? height(node->left) : -1;
+  int right_height = (node->right != nullptr) ? height(node->right) : -1;
+
+  return right_height - left_height;
 }
 
+template <class T>
+int BinaryTree<T>::leaf_count(BTNode<T>* node) const
+{
+  if (node == nullptr)
+    return 0;
+
+  if (node->left == nullptr && node->right == nullptr)
+    return 1;
+
+  int count = 0;
+  if (node->left != nullptr)
+    count += leaf_count(node->left);
+  if (node->right != nullptr)
+    count += leaf_count(node->right);
+
+  return count;
+}
+
+/********************/
+/* Balanced Functions */
+/********************/
+template <class T>
+BTNode<T>* BinaryTree<T>::balanceTree(BTNode<T>* node) {
+  int b = balance_factor(node);
+  // Check if the tree is a complete binary tree
+  if (b <= -2) {
+    if (balance_factor(node->left) <= 0) {
+      return leftLeftCase(node);
+    }
+    else {
+      return leftRightCase(node);
+    }
+  } else if (b >= 2) {
+    if (balance_factor(node->right) >= 0) {
+      return rightRightCase(node);
+    }
+    else {
+      return rightLeftCase(node);
+    }
+  }
+  return node;
+}
+
+template <class T>
+BTNode<T>* BinaryTree<T>::leftLeftCase(BTNode<T>* node) {
+  cout << "Here 1" << endl;
+  return rotateRight(node);
+}
+
+template <class T>
+BTNode<T>* BinaryTree<T>::leftRightCase(BTNode<T>* node) {
+  cout << "Here 2" << endl;
+  node->left = rotateLeft(node->left);
+  return leftLeftCase(node);
+}
+
+template <class T>
+BTNode<T>* BinaryTree<T>::rightRightCase(BTNode<T>* node) {
+  cout << "Here 3" << endl;
+
+  return rotateLeft(node);
+}
+
+template <class T>
+BTNode<T>* BinaryTree<T>::rightLeftCase(BTNode<T>* node) {
+  cout << "Here 4" << endl;
+
+  node->right = rotateRight(node->right);
+  return rightRightCase(node);
+}
+
+template <class T>
+BTNode<T>* BinaryTree<T>::rotateLeft(BTNode<T>* node) {
+  BTNode<T>* newRoot = node->right;
+  node->right = newRoot->left;
+  newRoot->left = node;
+  return newRoot;
+}
+
+template <class T>
+BTNode<T>* BinaryTree<T>::rotateRight(BTNode<T>* node) {
+  BTNode<T>* newRoot = node->left;
+  node->left = newRoot->right;
+  newRoot->right = node;
+  return newRoot;
+}
 
 /*************/
 /* Traversal */
@@ -153,7 +274,6 @@ void BinaryTree<T>::preorder( void (*f)(const T&), BTNode<T> *node ) const
   preorder(f, node->right);
 }
 
-/* LEO ADD new function HERE -------------------------- */
 template<class T>
 void BinaryTree<T>::inorder( void (*f)(const T&), BTNode<T> *node ) const
 {
@@ -174,7 +294,6 @@ void BinaryTree<T>::postorder( void (*f)(const T&), BTNode<T> *node ) const
   f(node->elem);
 }
 
-/* ------------------------------------------------------ */
 
 /************************/
 /* Mutator */
@@ -247,6 +366,37 @@ int BinaryTree<T>::to_flat_array( T *elements, int max, BTNode<T> *node,
 /**************************/
 
 template<class T>
+bool BinaryTree<T>::operator==(const BinaryTree<T>& src) const
+{
+  // Compare the root nodes using the overloaded operator==
+  return (root == src.root);
+}
+
+template<class T>
+bool BinaryTree<T>::operator!=(const BinaryTree<T>& src) const
+{
+  // Negate the result of the operator==
+  return !(*this == src);
+}
+
+template<class T>
+BinaryTree<T>& BinaryTree<T>::operator=(const BinaryTree<T>& src)
+{
+  if (this == &src)
+    return *this;
+
+  // Empty the current tree
+  empty_this();
+
+  // Clone the root node of the source tree
+  root = clone(src.root);
+
+  return *this;
+}
+
+
+
+template<class T>
 ostream& operator<<( ostream& out, const BinaryTree<T>& src )
   // Writes the elements contained in the nodes of this tree,
   // by way of an inorder traversal
@@ -273,15 +423,14 @@ ostream& operator<<( ostream& out, const BTNode<T>* node )
   return out;
 }
 
-/* LEO ADD new function HERE -------------------------- */
 template<class T>
-void BinaryTree<T>::add(const T& value) {
-    if (root == nullptr) {
-        root = new BTNode<T>(value);
-        return;
+BTNode<T>* BinaryTree<T>::add(BTNode<T>* node, const T& value) {
+    if (node == nullptr) {
+        node = new BTNode<T>(value);
+        return node;
     }
   
-    BTNode<T>* current = root;
+    BTNode<T>* current = node;
     while (true) {
         if (value < current->elem) {
             if (current->left == nullptr) {
@@ -297,6 +446,9 @@ void BinaryTree<T>::add(const T& value) {
             current = current->right;
         }
     }
+    return balanceTree(node);
+    //balance the tree
+    
 }
 
 template<class T>
@@ -304,7 +456,6 @@ void BinaryTree<T>::remove(const T& value) {
   //add delete code here
 }
 
-/* ------------------------------------------------------ */
 
 /***********/
 /* Display */

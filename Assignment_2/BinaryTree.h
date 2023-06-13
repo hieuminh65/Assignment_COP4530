@@ -60,17 +60,19 @@ class BinaryTree {
   int height() const         { return height(root); }
   int node_count() const     { return node_count(root); }
   int leaf_count() const     { return leaf_count(root); }
+  BTNode<T>* getRoot() const { return root; }
 
   /* Mutators, and other Initialization */
   bool empty_this() { empty(root); root = NULL; return true; }
   void init_complete( T *elements, int n_elements );
   int to_flat_array( T* elements, int max ) const;
-  /* LEO ADD new function HERE -------------------------- */
-  void add(const T& value);
-  void remove(const T& value);
-  /* ------------------------------------------------------ */
 
-  
+  BTNode<T>* add(BTNode<T>* node, const T& value);
+  void remove(const T& value);
+
+  /* Balanced functions */
+  BTNode<T>* balanceTree(BTNode<T>* node);
+
   /* Traversal */
   void preorder( void (*f)(const T&) )  const { return preorder(f, root); }
   void inorder( void (*f)(const T&) )   const { return inorder(f, root); }
@@ -79,7 +81,7 @@ class BinaryTree {
   /* Operators */
   bool operator==( const BinaryTree& src ) const;
   bool operator!=( const BinaryTree& src ) const;
-  BinaryTree& operator=( const BinaryTree& src ) const;
+  BinaryTree& operator=( const BinaryTree& src );
 
   /* Input/Output */
   template<class S>
@@ -99,6 +101,14 @@ class BinaryTree {
   int balance_factor( BTNode<T>* node ) const;
   int node_count( BTNode<T>* node ) const;
   int leaf_count( BTNode<T>* node ) const;
+
+  BTNode<T>* leftLeftCase(BTNode<T>* node);
+  BTNode<T>* leftRightCase(BTNode<T>* node);
+  BTNode<T>* rightRightCase(BTNode<T>* node);
+  BTNode<T>* rightLeftCase(BTNode<T>* node);
+
+  BTNode<T>* rotateLeft(BTNode<T>* node);
+  BTNode<T>* rotateRight(BTNode<T>* node);
 
   void preorder( void (*f)(const T&), BTNode<T> *node ) const;
   void inorder( void (*f)(const T&), BTNode<T> *node ) const;
