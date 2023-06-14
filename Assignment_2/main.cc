@@ -11,7 +11,8 @@ void func( const int& src )
 
 void user_prompt(BinaryTree<int>& tree){
     string command = "\n"
-                      "Choose the operation you want to perform: \n"
+                     "----------------------------------------\n"
+                     "Choose the operation you want to perform: \n"
                      "1. Add a new node\n"
                      "2. Remove a node\n"
                      "3. Search for a node\n"
