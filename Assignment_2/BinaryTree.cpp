@@ -208,7 +208,6 @@ bool BinaryTree<T>::contains( BTNode<T>* node, const T& value ){
   return contains(node->left, value) || contains(node->right, value);
 }
 
-
 /********************/
 /* Balanced Functions */
 /********************/
