@@ -21,7 +21,7 @@ int complete_tree_height( int n )
   return h;
 }
 
-void user_prompt(BinaryTree<int> tree){
+void user_prompt(BinaryTree<int>& tree){
     string command = "\n"
                       "Choose the operation you want to perform: \n"
                      "1. Add a new node\n"
@@ -33,10 +33,7 @@ void user_prompt(BinaryTree<int> tree){
                      "7. Count the number of node\n"
                      "8. Exit\n";
     
-    int prompt;
-    // cout << command << endl;
-    // cout << "Enter a command: " << endl;
-    // cin >> prompt;
+    int prompt = 0;
     while (prompt != 8){
         cout << command << endl;
         cout << "Enter a command: ";
@@ -72,6 +69,7 @@ void user_prompt(BinaryTree<int> tree){
         else if (prompt == 4)
         {
           PDF *pdf = new PDF("trees.pdf");
+
           ostringstream ostring;
           ostring << "Complete tree having " << tree.node_count() << " nodes";
           tree.display(pdf, ostring.str());
@@ -121,11 +119,11 @@ void user_prompt(BinaryTree<int> tree){
         }
         else if (prompt == 8)
         {
-            exit(0);
+            cout << "Exiting..." << endl;
         }
         else
         {
-            cout << "Invalid input" << endl;
+          cout << "Invalid input" << endl;
         }
     }
 }
@@ -152,16 +150,9 @@ int main( int argc, char *argv[] )
 
     BinaryTree<int> tree(elements, n);
     user_prompt(tree);
-    // tree.add(5);
-    // tree.add(35);
-    // tree.add(15);
-    // tree.add(6);
+
     tree.add(96);
     tree.add(964);
-    tree.balanceTree(tree.getRoot());
-    // Output the tree
-    cout << "tree output via << operator:\n" << endl;
-    tree.inorder(func);
     
     // Draw the tree
     ostringstream ostring;
