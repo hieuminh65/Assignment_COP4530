@@ -21,6 +21,114 @@ int complete_tree_height( int n )
   return h;
 }
 
+void user_prompt(BinaryTree<int> tree){
+    string command = "\n"
+                      "Choose the operation you want to perform: \n"
+                     "1. Add a new node\n"
+                     "2. Remove a node\n"
+                     "3. Search for a node\n"
+                     "4. Print the tree\n"
+                     "5. Choose the traversal method\n"
+                     "6. Check if the tree is empty\n"
+                     "7. Count the number of node\n"
+                     "8. Exit\n";
+    
+    int prompt;
+    // cout << command << endl;
+    // cout << "Enter a command: " << endl;
+    // cin >> prompt;
+    while (prompt != 8){
+        cout << command << endl;
+        cout << "Enter a command: ";
+        cin >> prompt;
+        if (prompt == 1){
+            int num;
+            cout << "Enter a number you want to add: " << endl;
+            cin >> num;
+            tree.add(num);
+            cout << "Added " << num << " to the tree" << endl;
+        }
+        else if (prompt == 2)
+        {
+            int num;
+            cout << "Enter a number you want to remove: " << endl;
+            cin >> num;
+            tree.remove(num);
+            cout << "Removed " << num << " from the tree" << endl;
+        }
+        else if (prompt == 3)
+        {
+            int num;
+            cout << "Enter a number you want to search: " << endl;
+            cin >> num;
+            tree.contains(num);
+            if (tree.contains(num) == true){
+                cout << "The tree contains " << num << endl;
+            }
+            else{
+                cout << "The tree does not contain " << num << endl;
+            }
+        }
+        else if (prompt == 4)
+        {
+          PDF *pdf = new PDF("trees.pdf");
+          ostringstream ostring;
+          ostring << "Complete tree having " << tree.node_count() << " nodes";
+          tree.display(pdf, ostring.str());
+          pdf->finish();
+          delete pdf;
+          cout << "Printed the tree. Check the pdf file" << endl;
+        }
+        else if (prompt == 5)
+        {
+            cout << "Choose the traversal method: " << endl;
+            cout << "1. Preorder" << endl;
+            cout << "2. Inorder" << endl;
+            cout << "3. Postorder" << endl;
+            int num;
+            cout << "Enter a method you want to traverse: " << endl;
+            cin >> num;
+            cout << "The tree is: " << endl;
+            if (num == 1){
+                tree.preorder(func);
+            }
+            else if (num == 2){
+                tree.inorder(func);
+            } 
+            else if (num == 3){
+                tree.postorder(func);
+            }
+            else{
+                cout << "Invalid input" << endl;
+            }
+            
+        }
+        else if (prompt == 6)
+        {
+            tree.is_empty();
+            if (tree.is_empty() == true){
+                cout << "The tree is empty" << endl;
+            }
+            else{
+                cout << "The tree is not empty" << endl;
+            }
+        }
+        else if (prompt == 7)
+        {
+            cout << "The number of nodes in the tree is: " <<
+            tree.node_count();
+            cout << endl;
+        }
+        else if (prompt == 8)
+        {
+            exit(0);
+        }
+        else
+        {
+            cout << "Invalid input" << endl;
+        }
+    }
+}
 
 /********/
 /* Main */
@@ -43,7 +151,7 @@ int main( int argc, char *argv[] )
     PDF *pdf = new PDF("trees.pdf");
 
     BinaryTree<int> tree(elements, n);
-
+    user_prompt(tree);
     // tree.add(5);
     // tree.add(35);
     // tree.add(15);

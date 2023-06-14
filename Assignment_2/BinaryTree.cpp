@@ -199,6 +199,16 @@ int BinaryTree<T>::leaf_count(BTNode<T>* node) const
   return count;
 }
 
+template <class T>
+bool BinaryTree<T>::contains( BTNode<T>* node, const T& value ){
+  if (node == NULL)
+    return false;
+  if (node->elem == value)
+    return true;
+  return contains(node->left, value) || contains(node->right, value);
+}
+
+
 /********************/
 /* Balanced Functions */
 /********************/
@@ -314,6 +324,72 @@ void BinaryTree<T>::empty(BTNode<T> *node) const
   delete node;
 }
 
+template<class T>
+BTNode<T>* BinaryTree<T>::add(BTNode<T>* node, const T& value) {
+    if (node == nullptr) {
+        return new BTNode<T>(value);
+    }
+    if (value <= node->elem) {
+        node->left = add(node->left, value);
+    } else {
+        node->right = add(node->right, value);
+    }
+
+    update_bf(node);
+
+    return balanceTree(node);
+    
+}
+
+template<class T>
+bool BinaryTree<T>::remove(const T& value) {
+  if (contains(value)) {
+    root = remove(root, value);
+    return true;
+  }
+  return false;
+}
+
+template<class T>
+BTNode<T>* BinaryTree<T>::remove(BTNode<T>* node, const T& value) {
+  if (node == nullptr) {
+    return nullptr;
+  }
+  if (value < node->elem) {
+    node->left = remove(node->left, value);
+  } else if (value > node->elem) {
+    node->right = remove(node->right, value);
+  } else {
+    if (node->left == nullptr) {
+      BTNode<T>* rightChild = node->right;
+      delete node;
+      return rightChild;
+    } else if (node->right == nullptr) {
+      BTNode<T>* leftChild = node->left;
+      delete node;
+      return leftChild;
+    } else {
+      BTNode<T>* minNode = findMin(node->right);
+      node->elem = minNode->elem;
+      node->right = remove(node->right, minNode->elem);
+    }
+  }
+
+  update_bf(node);
+
+  return balanceTree(node);
+}
+
+template<class T>
+BTNode<T>* BinaryTree<T>::findMin(BTNode<T>* node) {
+  while (node->left != nullptr) {
+    node = node->left;
+  }
+  return node;
+}
+
+
+
 /************************/
 /* Conversion to Arrays */
 /************************/
@@ -399,8 +475,6 @@ BinaryTree<T>& BinaryTree<T>::operator=(const BinaryTree<T>& src)
   return *this;
 }
 
-
-
 template<class T>
 ostream& operator<<( ostream& out, const BinaryTree<T>& src )
   // Writes the elements contained in the nodes of this tree,
@@ -427,29 +501,6 @@ ostream& operator<<( ostream& out, const BTNode<T>* node )
 
   return out;
 }
-
-template<class T>
-BTNode<T>* BinaryTree<T>::add(BTNode<T>* node, const T& value) {
-    if (node == nullptr) {
-        return new BTNode<T>(value);
-    }
-    if (value <= node->elem) {
-        node->left = add(node->left, value);
-    } else {
-        node->right = add(node->right, value);
-    }
-
-    update_bf(node);
-
-    return balanceTree(node);
-    
-}
-
-template<class T>
-void BinaryTree<T>::remove(const T& value) {
-  //add delete code here
-}
-
 
 /***********/
 /* Display */

@@ -66,6 +66,7 @@ class BinaryTree {
   int height() const         { return height(root); }
   int node_count() const     { return node_count(root); }
   int leaf_count() const     { return leaf_count(root); }
+  bool contains( const T& value ) { return contains(root, value); }
   BTNode<T>* getRoot() const { return root; }
 
   /* Mutators, and other Initialization */
@@ -73,7 +74,7 @@ class BinaryTree {
   void init_complete( T *elements, int n_elements );
   int to_flat_array( T* elements, int max ) const;
   void add( const T& value ) { root = add(root, value); }
-  void remove(const T& value);
+  bool remove(const T& value);
 
   /* Balanced functions */
   BTNode<T>* balanceTree(BTNode<T>* node);
@@ -106,6 +107,8 @@ class BinaryTree {
   int balance_factor( BTNode<T>* node ) const;
   int node_count( BTNode<T>* node ) const;
   int leaf_count( BTNode<T>* node ) const;
+  bool contains( BTNode<T>* node, const T& value );
+
   void update_bf(BTNode<T>* node);
 
   BTNode<T>* leftLeftCase(BTNode<T>* node);
@@ -121,6 +124,8 @@ class BinaryTree {
   void postorder( void (*f)(const T&), BTNode<T> *node ) const;
 
   BTNode<T>* add(BTNode<T>* node, const T& value);
+  BTNode<T>* remove(BTNode<T>* node, const T& value);
+  BTNode<T>* findMin(BTNode<T>* node);
 
   void empty( BTNode<T>* node ) const; 
 
