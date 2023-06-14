@@ -20,7 +20,7 @@ struct BTNode {
 
   // Constructors
   BTNode() { left = right = NULL; }
-  BTNode( T elem, BTNode* left = NULL, BTNode* right = NULL, int height = 1 ) {
+  BTNode( T elem, BTNode* left = NULL, BTNode* right = NULL, int height = 0 ) {
     this->elem = elem;
     this->left = left;
     this->right = right;

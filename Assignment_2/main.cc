@@ -9,18 +9,6 @@ void func( const int& src )
   cout << src << " ";
 }
 
-int complete_tree_height( int n ) 
-  // Returns the height of a complete binary tree having 'n' nodes
-{
-  int h = 0;
-  // essentially, take the base-2 logarithm of 'n'
-  while (n > 0) {
-    n /= 2;
-    h++;
-  }
-  return h;
-}
-
 void user_prompt(BinaryTree<int>& tree){
     string command = "\n"
                       "Choose the operation you want to perform: \n"
@@ -31,10 +19,12 @@ void user_prompt(BinaryTree<int>& tree){
                      "5. Choose the traversal method\n"
                      "6. Check if the tree is empty\n"
                      "7. Count the number of node\n"
-                     "8. Exit\n";
+                     "8. Count the number of leaves\n"
+                     "9. Get the height of the tree\n"
+                     "10. Exit\n";
     
     int prompt = 0;
-    while (prompt != 8){
+    while (prompt != 10){
         cout << command << endl;
         cout << "Enter a command: ";
         cin >> prompt;
@@ -123,8 +113,24 @@ void user_prompt(BinaryTree<int>& tree){
             cout << endl;
         }
         else if (prompt == 8)
+        {   
+            cout << "The number of leaves in the tree is: ";
+            cout << tree.leaf_count() << endl;
+        }
+        else if (prompt == 9)
+        {   
+            cout << "The height of the tree is: ";
+            cout << tree.height() << endl;
+        }
+        else if (prompt == 10)
         {
             cout << "Exiting..." << endl;
+        }
+        else if (!(cin >> prompt)) {
+            cout << "Invalid input. Please enter a number." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
         }
         else
         {
@@ -144,39 +150,14 @@ int main( int argc, char *argv[] )
     // for (int k = 1; k <= max_nodes; k++)
     //     elements[k] = k;
     elements[0] = 0;
-    elements[1] = 0;
+
     // Create a new binary tree, having 'n' elements
-    int n = 2;  // <-- try changing the value of 'n'
-    for (int i = 0; i < n; i++){
-      cout << elements[i] << " ";
-    }
+    int n = 0;  // <-- try changing the value of 'n'
+    
 
     PDF *pdf = new PDF("trees.pdf");
 
     BinaryTree<int> tree(elements, n);
     user_prompt(tree);
-
-    tree.add(96);
-    tree.add(964);
-    
-    // Draw the tree
-    ostringstream ostring;
-    ostring << "Complete tree having " << n << " nodes";
-    tree.display(pdf, ostring.str());
-    pdf->finish();
-    delete pdf;
 }
 
-
-/* The output should look like this:
-  
-tree output via << operator:
-8 4 9 2 10 5 11 1 12 6 3 7 
-Preorder traversal:
-1 2 4 8 9 5 10 11 3 6 12 7 
-Inorder traversal:
-8 4 9 2 10 5 11 1 12 6 3 7 
-Postorder traversal:
-8 9 4 10 11 5 2 12 6 7 3 1 
-
-*/

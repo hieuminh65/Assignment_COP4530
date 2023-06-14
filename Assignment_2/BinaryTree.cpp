@@ -388,8 +388,6 @@ BTNode<T>* BinaryTree<T>::findMin(BTNode<T>* node) {
   return node;
 }
 
-
-
 /************************/
 /* Conversion to Arrays */
 /************************/
