@@ -40,7 +40,7 @@ void user_prompt(BinaryTree<int>& tree){
         cin >> prompt;
         if (prompt == 1){
             int num;
-            cout << "Enter a number you want to add: " << endl;
+            cout << "Enter a number you want to add: " ;
             cin >> num;
             tree.add(num);
             cout << "Added " << num << " to the tree" << endl;
@@ -48,15 +48,20 @@ void user_prompt(BinaryTree<int>& tree){
         else if (prompt == 2)
         {
             int num;
-            cout << "Enter a number you want to remove: " << endl;
+            cout << "Enter a number you want to remove: ";
             cin >> num;
             tree.remove(num);
-            cout << "Removed " << num << " from the tree" << endl;
+            if (tree.remove(num) == false){
+                cout << "The tree does not contain " << num << endl;
+            }
+            else{
+                cout << "Removed " << num << " from the tree" << endl;
+            }
         }
         else if (prompt == 3)
         {
             int num;
-            cout << "Enter a number you want to search: " << endl;
+            cout << "Enter a number you want to search: ";
             cin >> num;
             tree.contains(num);
             if (tree.contains(num) == true){
@@ -136,12 +141,12 @@ int main( int argc, char *argv[] )
 {
     int max_nodes = 255;
     int elements[max_nodes + 1];
-    for (int k = 1; k <= max_nodes; k++)
-        elements[k] = k;
+    // for (int k = 1; k <= max_nodes; k++)
+    //     elements[k] = k;
     elements[0] = 0;
-    
+    elements[1] = 0;
     // Create a new binary tree, having 'n' elements
-    int n = 13;  // <-- try changing the value of 'n'
+    int n = 2;  // <-- try changing the value of 'n'
     for (int i = 0; i < n; i++){
       cout << elements[i] << " ";
     }
