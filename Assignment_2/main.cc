@@ -32,12 +32,10 @@ int main( int argc, char *argv[] )
     int elements[max_nodes + 1];
     for (int k = 1; k <= max_nodes; k++)
         elements[k] = k;
-    // elements[0] = 0;
-    // Construct a PDF object to write the tree output
-    // PDF *pdf = new PDF("trees.pdf");
+    elements[0] = 0;
     
     // Create a new binary tree, having 'n' elements
-    int n = 19;  // <-- try changing the value of 'n'
+    int n = 13;  // <-- try changing the value of 'n'
     for (int i = 0; i < n; i++){
       cout << elements[i] << " ";
     }
@@ -45,19 +43,17 @@ int main( int argc, char *argv[] )
     PDF *pdf = new PDF("trees.pdf");
 
     BinaryTree<int> tree(elements, n);
+
     // tree.add(5);
     // tree.add(35);
     // tree.add(15);
     // tree.add(6);
-    tree.add(tree.getRoot(), 96);
-    // tree.add(666);
-    // tree.add(65);
-    // tree.add(-65);
-    // tree.add(-66);
-    // tree.add(-67);
-    // tree.balanceTree(tree.getRoot());
+    tree.add(96);
+    tree.add(964);
+    tree.balanceTree(tree.getRoot());
     // Output the tree
-    cout << "tree output via << operator:\n" << tree << "\n";
+    cout << "tree output via << operator:\n" << endl;
+    tree.inorder(func);
     
     // Draw the tree
     ostringstream ostring;

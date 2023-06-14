@@ -15,18 +15,24 @@ struct BTNode {
   T       elem;  // element contained in the node
   BTNode *left;  // pointer to the left child (can be NULL)
   BTNode *right; // pointer to the right child (can be NULL)
+  int height;
+  int bf;
 
   // Constructors
   BTNode() { left = right = NULL; }
-  BTNode( T elem, BTNode* left = NULL, BTNode* right = NULL ) {
+  BTNode( T elem, BTNode* left = NULL, BTNode* right = NULL, int height = 1 ) {
     this->elem = elem;
     this->left = left;
     this->right = right;
+    this->height = height;
+    this->bf = 0;
   }
   BTNode( const BTNode& src ) {
     this->elem = src.elem;
     this->left = src.left;
     this->right = src.right;
+    this->height = src.height;
+    this->bf = src.bf;
   }
   
   // Simple tests
@@ -66,8 +72,7 @@ class BinaryTree {
   bool empty_this() { empty(root); root = NULL; return true; }
   void init_complete( T *elements, int n_elements );
   int to_flat_array( T* elements, int max ) const;
-
-  BTNode<T>* add(BTNode<T>* node, const T& value);
+  void add( const T& value ) { root = add(root, value); }
   void remove(const T& value);
 
   /* Balanced functions */
@@ -101,6 +106,7 @@ class BinaryTree {
   int balance_factor( BTNode<T>* node ) const;
   int node_count( BTNode<T>* node ) const;
   int leaf_count( BTNode<T>* node ) const;
+  void update_bf(BTNode<T>* node);
 
   BTNode<T>* leftLeftCase(BTNode<T>* node);
   BTNode<T>* leftRightCase(BTNode<T>* node);
@@ -113,6 +119,8 @@ class BinaryTree {
   void preorder( void (*f)(const T&), BTNode<T> *node ) const;
   void inorder( void (*f)(const T&), BTNode<T> *node ) const;
   void postorder( void (*f)(const T&), BTNode<T> *node ) const;
+
+  BTNode<T>* add(BTNode<T>* node, const T& value);
 
   void empty( BTNode<T>* node ) const; 
 

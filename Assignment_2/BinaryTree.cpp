@@ -148,11 +148,9 @@ bool BinaryTree<T>::is_empty() const {
 template <class T>
 int BinaryTree<T>::height(BTNode<T>* node) const {
   if (node == nullptr) {
-    return 0; // base case: empty tree has height -1
+    return 0; 
   } else {
-    int left_height = height(node->left);
-    int right_height = height(node->right);
-    return 1 + max(left_height, right_height); // add 1 to the max of children heights
+    return node->height;
   }
 }
 
@@ -167,10 +165,20 @@ int BinaryTree<T>::node_count( BTNode<T> *node ) const
 template <class T>
 int BinaryTree<T>::balance_factor(BTNode<T>* node) const
 {
-  int left_height = (node->left != nullptr) ? height(node->left) : -1;
-  int right_height = (node->right != nullptr) ? height(node->right) : -1;
+  int left_height = (node->left != nullptr) ? node->left->height : -1;
+  int right_height = (node->right != nullptr) ? node->right->height : -1;
 
   return right_height - left_height;
+}
+
+template <class T>
+void BinaryTree<T>::update_bf(BTNode<T>* node) {
+  int left_height = (node->left != nullptr) ? node->left->height : -1;
+  int right_height = (node->right != nullptr) ? node->right->height : -1;
+
+  node->height = max(left_height, right_height) + 1;
+
+  node->bf = right_height - left_height;
 }
 
 template <class T>
@@ -196,17 +204,16 @@ int BinaryTree<T>::leaf_count(BTNode<T>* node) const
 /********************/
 template <class T>
 BTNode<T>* BinaryTree<T>::balanceTree(BTNode<T>* node) {
-  int b = balance_factor(node);
   // Check if the tree is a complete binary tree
-  if (b <= -2) {
-    if (balance_factor(node->left) <= 0) {
+  if (node->bf <= -2) {
+    if (node->left->bf <= 0) {
       return leftLeftCase(node);
     }
     else {
       return leftRightCase(node);
     }
-  } else if (b >= 2) {
-    if (balance_factor(node->right) >= 0) {
+  } else if (node->bf >= 2) {
+    if (node->right->bf >= 0) {
       return rightRightCase(node);
     }
     else {
@@ -218,28 +225,22 @@ BTNode<T>* BinaryTree<T>::balanceTree(BTNode<T>* node) {
 
 template <class T>
 BTNode<T>* BinaryTree<T>::leftLeftCase(BTNode<T>* node) {
-  cout << "Here 1" << endl;
   return rotateRight(node);
 }
 
 template <class T>
 BTNode<T>* BinaryTree<T>::leftRightCase(BTNode<T>* node) {
-  cout << "Here 2" << endl;
   node->left = rotateLeft(node->left);
   return leftLeftCase(node);
 }
 
 template <class T>
 BTNode<T>* BinaryTree<T>::rightRightCase(BTNode<T>* node) {
-  cout << "Here 3" << endl;
-
   return rotateLeft(node);
 }
 
 template <class T>
 BTNode<T>* BinaryTree<T>::rightLeftCase(BTNode<T>* node) {
-  cout << "Here 4" << endl;
-
   node->right = rotateRight(node->right);
   return rightRightCase(node);
 }
@@ -249,6 +250,8 @@ BTNode<T>* BinaryTree<T>::rotateLeft(BTNode<T>* node) {
   BTNode<T>* newRoot = node->right;
   node->right = newRoot->left;
   newRoot->left = node;
+  update_bf(node);
+  update_bf(newRoot);
   return newRoot;
 }
 
@@ -257,6 +260,8 @@ BTNode<T>* BinaryTree<T>::rotateRight(BTNode<T>* node) {
   BTNode<T>* newRoot = node->left;
   node->left = newRoot->right;
   newRoot->right = node;
+  update_bf(node);
+  update_bf(newRoot);
   return newRoot;
 }
 
@@ -426,28 +431,17 @@ ostream& operator<<( ostream& out, const BTNode<T>* node )
 template<class T>
 BTNode<T>* BinaryTree<T>::add(BTNode<T>* node, const T& value) {
     if (node == nullptr) {
-        node = new BTNode<T>(value);
-        return node;
+        return new BTNode<T>(value);
     }
-  
-    BTNode<T>* current = node;
-    while (true) {
-        if (value < current->elem) {
-            if (current->left == nullptr) {
-                current->left = new BTNode<T>(value);
-                break;
-            }
-            current = current->left;
-        } else {
-            if (current->right == nullptr) {
-                current->right = new BTNode<T>(value);
-                break;
-            }
-            current = current->right;
-        }
+    if (value <= node->elem) {
+        node->left = add(node->left, value);
+    } else {
+        node->right = add(node->right, value);
     }
+
+    update_bf(node);
+
     return balanceTree(node);
-    //balance the tree
     
 }
 
