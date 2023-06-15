@@ -13,30 +13,45 @@ void user_prompt(BinaryTree<int>& tree){
     string command = "\n"
                      "----------------------------------------\n"
                      "Choose the operation you want to perform: \n"
-                     "1. Add a new node\n"
-                     "2. Remove a node\n"
-                     "3. Search for a node\n"
-                     "4. Print the tree\n"
-                     "5. Choose the traversal method\n"
-                     "6. Check if the tree is empty\n"
-                     "7. Count the number of node\n"
-                     "8. Count the number of leaves\n"
-                     "9. Get the height of the tree\n"
-                     "10. Exit\n";
+                     "1. Add a number of nodes\n"
+                     "2. Add a new node\n"
+                     "3. Remove a node\n"
+                     "4. Search for a node\n"
+                     "5. Print the tree\n"
+                     "6. Choose the traversal method\n"
+                     "7. Check if the tree is empty\n"
+                     "8. Count the number of node\n"
+                     "9. Count the number of leaves\n"
+                     "10. Get the height of the tree\n"
+                     "11. Exit\n";
     
     int prompt = 0;
-    while (prompt != 10){
+    while (prompt != 11){
         cout << command << endl;
         cout << "Enter a command: ";
         cin >> prompt;
-        if (prompt == 1){
+        if (prompt == 1)
+        {
+            int num_nodes;
+            cout << "Enter the number of nodes you want to add: ";
+            cin >> num_nodes;
+            for (int i = 0; i < num_nodes; i++){
+                int num;
+                cout << "Enter a number you want to add: ";
+                cin >> num;
+                tree.add(num);
+                cout << "Added " << num << " to the tree" << endl;
+            }
+        }
+        
+        else if (prompt == 2){
             int num;
             cout << "Enter a number you want to add: " ;
             cin >> num;
             tree.add(num);
             cout << "Added " << num << " to the tree" << endl;
         }
-        else if (prompt == 2)
+        else if (prompt == 3)
         {
             int num;
             cout << "Enter a number you want to remove: ";
@@ -49,7 +64,7 @@ void user_prompt(BinaryTree<int>& tree){
                 cout << "Removed " << num << " from the tree" << endl;
             }
         }
-        else if (prompt == 3)
+        else if (prompt == 4)
         {
             int num;
             cout << "Enter a number you want to search: ";
@@ -62,7 +77,7 @@ void user_prompt(BinaryTree<int>& tree){
                 cout << "The tree does not contain " << num << endl;
             }
         }
-        else if (prompt == 4)
+        else if (prompt == 5)
         {
           PDF *pdf = new PDF("trees.pdf");
 
@@ -73,7 +88,7 @@ void user_prompt(BinaryTree<int>& tree){
           delete pdf;
           cout << "Printed the tree. Check the pdf file" << endl;
         }
-        else if (prompt == 5)
+        else if (prompt == 6)
         {
             cout << "Choose the traversal method: " << endl;
             cout << "1. Preorder" << endl;
@@ -97,7 +112,7 @@ void user_prompt(BinaryTree<int>& tree){
             }
             
         }
-        else if (prompt == 6)
+        else if (prompt == 7)
         {
             tree.is_empty();
             if (tree.is_empty() == true){
@@ -107,23 +122,23 @@ void user_prompt(BinaryTree<int>& tree){
                 cout << "The tree is not empty" << endl;
             }
         }
-        else if (prompt == 7)
+        else if (prompt == 8)
         {
             cout << "The number of nodes in the tree is: " <<
             tree.node_count();
             cout << endl;
         }
-        else if (prompt == 8)
+        else if (prompt == 9)
         {   
             cout << "The number of leaves in the tree is: ";
             cout << tree.leaf_count() << endl;
         }
-        else if (prompt == 9)
+        else if (prompt == 10)
         {   
             cout << "The height of the tree is: ";
             cout << tree.height() << endl;
         }
-        else if (prompt == 10)
+        else if (prompt == 11)
         {
             cout << "Exiting..." << endl;
         }
