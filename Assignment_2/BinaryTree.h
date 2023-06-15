@@ -67,7 +67,6 @@ class BinaryTree {
   int node_count() const     { return node_count(root); }
   int leaf_count() const     { return leaf_count(root); }
   bool contains( const T& value ) { return contains(root, value); }
-  BTNode<T>* getRoot() const { return root; }
 
   /* Mutators, and other Initialization */
   bool empty_this() { empty(root); root = NULL; return true; }
